@@ -32,7 +32,7 @@ namespace Hangman
     public partial class MainWindow : Window
     {
         DispatcherTimer timer;
-
+        // Initialize all values
         string FileText;
         string[] Mots;
         string WordsFile = "words.txt";
@@ -48,7 +48,7 @@ namespace Hangman
 
         int timeleft;
 
-        public void NewGame()
+        public void NewGame() // Function to restart the game instead of closing and reopening each time
         {
 
             timer = new DispatcherTimer();
@@ -91,7 +91,7 @@ namespace Hangman
             NewGame();
         }
 
-        void timer_tick(object sender, EventArgs e)
+        void timer_tick(object sender, EventArgs e) // Counter
         {
             if (timeleft > 0 && CurrentLives > 0 && HiddenWord.Contains("*") == true)
             {
@@ -111,7 +111,7 @@ namespace Hangman
             CommandManager.InvalidateRequerySuggested();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e) // All button letters
         {
             Button btn = sender as Button;
             String btnContent = btn.Content.ToString();
@@ -135,7 +135,7 @@ namespace Hangman
             }
             
         }
-        private void WordChecker(char letter)
+        private void WordChecker(char letter) // Checks if the letter is in the word and multiple times and changes
         {
             StringBuilder newHiddenWord = new StringBuilder(HiddenWord);
 
@@ -149,7 +149,7 @@ namespace Hangman
                 WordTextbox.Text = HiddenWord;
             }
         }
-        private void LivesCounter()
+        private void LivesCounter() // Counter for lives
         {
             if (CurrentLives > 0)
             {
@@ -167,7 +167,7 @@ namespace Hangman
             NewGame();
         }
 
-        private void HelpSacrifice_Click(object sender, RoutedEventArgs e)
+        private void HelpSacrifice_Click(object sender, RoutedEventArgs e) // Sacrifice 1 life for a random letter (risky move)
         {
             if (CurrentLives > 1)
             {
