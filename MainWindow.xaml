@@ -5,8 +5,145 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hangman"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="700" Width="1200" Background="#1A1E21">
 
+    <Grid Background="#1A1E21">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.8*"/>
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <!--Modify all buttons except those manually changed-->
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#1A1E21"/>
+                <Setter Property="FontSize" Value="34"/>
+                <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                <Setter Property="BorderThickness" Value="2, 2, 2, 2"/>
+                <Setter Property="BorderBrush" Value="White"/>
+                <Setter Property="Height" Value="65"/>
+                <Setter Property="Width" Value="65"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1039*"/>
+            <ColumnDefinition Width="161*"/>
+        </Grid.ColumnDefinitions>
+        <!--  -->
+        <TextBlock x:Name="WordTextbox" Text="" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" TextAlignment="Center" Width="659" Height="62" Foreground="White" FontSize="40" Margin="206,0,0,0"/>
+        <Grid Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1037*"/>
+                <ColumnDefinition Width="163*"/>
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="DeepSkyBlue" BorderThickness="1"  Height="1" VerticalAlignment="Top" Width="109" RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+            </Border>
+            <Border BorderBrush="DeepSkyBlue" BorderThickness="1"  Height="1" VerticalAlignment="Top" Width="126" RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+            </Border>
+            <!-- Top Grid-->
+            <Grid Grid.Column="0" Grid.ColumnSpan="2">
+                <Label x:Name="TimerLabel"  Content="00:00" FontSize="60" Foreground="White" HorizontalContentAlignment="Right" Margin="423,-8,13,24" Grid.Column="1" Grid.RowSpan="2"/>
+                <Button x:Name="HelpSacrifice" Visibility="Visible" BorderBrush="White" BorderThickness="2, 2, 2, 2" HorizontalAlignment="Left" Content="Sacrifice Life" Background="Transparent" Width="196" Click="HelpSacrifice_Click" Margin="985,74,0,0" VerticalAlignment="Top"/>
+            </Grid>
+
+
+
+
+
+            <Label x:Name="LabelLives" Content="Lives: 6/6" BorderBrush="White" VerticalContentAlignment="Center" BorderThickness="2, 2, 2, 2" Foreground="White" FontSize="29" Margin="12,16,877,99"/>
+
+        </Grid>
+        <!-- Bottom Grid -->
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <!-- Letters grid-->
+            <Grid x:Name="LettersGrid" Grid.Column="1">
+
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Click="Button_Click" Content="A"  Grid.Row="0" Grid.Column="0"/>
+                <Button Click="Button_Click" Content="B"  Grid.Row="0" Grid.Column="1"/>
+                <Button Click="Button_Click" Content="C" Grid.Row="0" Grid.Column="2"/>
+                <Button Click="Button_Click" Content="D"  Grid.Row="0" Grid.Column="3"/>
+                <Button Click="Button_Click" Content="E" Grid.Row="0" Grid.Column="4"/>
+                <Button Click="Button_Click" Content="F"  Grid.Row="0" Grid.Column="5"/>
+                <Button Click="Button_Click" Content="G"  Grid.Row="0" Grid.Column="6"/>
+                <Button Click="Button_Click" Content="H"  Grid.Row="0" Grid.Column="7"/>
+                <Button Click="Button_Click" Content="I"  Grid.Row="0" Grid.Column="8"/>
+                <Button Click="Button_Click" Content="J" Grid.Row="1" Grid.Column="0"/>
+                <Button Click="Button_Click" Content="K"  Grid.Row="1" Grid.Column="1"/>
+                <Button Click="Button_Click" Content="L"  Grid.Row="1" Grid.Column="2"/>
+                <Button Click="Button_Click" Content="M"  Grid.Row="1" Grid.Column="3"/>
+                <Button Click="Button_Click" Content="N"  Grid.Row="1" Grid.Column="4"/>
+                <Button Click="Button_Click" Content="O"  Grid.Row="1" Grid.Column="5"/>
+                <Button Click="Button_Click" Content="P"  Grid.Row="1" Grid.Column="6"/>
+                <Button Click="Button_Click" Content="Q"  Grid.Row="1" Grid.Column="7"/>
+                <Button Click="Button_Click" Content="R"  Grid.Row="1" Grid.Column="8"/>
+                <Button Click="Button_Click" Content="S"  Grid.Row="2" Grid.Column="0"/>
+                <Button Click="Button_Click" Content="T"  Grid.Row="2" Grid.Column="1"/>
+                <Button Click="Button_Click" Content="U"  Grid.Row="2" Grid.Column="2"/>
+                <Button Click="Button_Click" Content="V"  Grid.Row="2" Grid.Column="3"/>
+                <Button Click="Button_Click" Content="W"  Grid.Row="2" Grid.Column="4"/>
+                <Button Click="Button_Click" Content="X"  Grid.Row="2" Grid.Column="5"/>
+                <Button Click="Button_Click" Content="Y"  Grid.Row="2" Grid.Column="6"/>
+                <Button Click="Button_Click" Content="Z"  Grid.Row="2" Grid.Column="7"/>
+                <Button Content=""  Grid.Row="2" Grid.Column="8"/>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.45*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.3*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Grid.Row="0" x:Name="ReplayButton" Content="RESTART"  Width="200" Height="80" Click="ReplayButton_Click" FontSize="36"/>
+            </Grid>
+        </Grid>
+        <!---->
+        <Image x:Name="character" Margin="661,46,254,100" Source="images/character_0.png" Stretch="Fill" Grid.RowSpan="2"/>
+        <Image x:Name="hangman" Margin="322,0,273,313" Grid.RowSpan="3" Source="images/hangman.png" Stretch="Fill"/>
     </Grid>
 </Window>

@@ -7,4 +7,45 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="images\arm.png" />
+    <None Remove="images\body.png" />
+    <None Remove="images\bodypart_1.png" />
+    <None Remove="images\bodypart_10.png" />
+    <None Remove="images\bodypart_2.png" />
+    <None Remove="images\bodypart_3.png" />
+    <None Remove="images\bodypart_4.png" />
+    <None Remove="images\body_part5.png" />
+    <None Remove="images\character.png" />
+    <None Remove="images\character_0.png" />
+    <None Remove="images\character_1.png" />
+    <None Remove="images\character_2.png" />
+    <None Remove="images\character_3.png" />
+    <None Remove="images\character_4.png" />
+    <None Remove="images\character_5.png" />
+    <None Remove="images\character_6.png" />
+    <None Remove="images\doublearm.png" />
+    <None Remove="images\hangman.png" />
+    <None Remove="images\head.png" />
+    <None Remove="images\leg.png" />
+    <None Remove="words.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="words.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\character_0.png" />
+    <Resource Include="images\character_1.png" />
+    <Resource Include="images\character_2.png" />
+    <Resource Include="images\character_3.png" />
+    <Resource Include="images\character_4.png" />
+    <Resource Include="images\character_5.png" />
+    <Resource Include="images\character_6.png" />
+    <Resource Include="images\hangman.png" />
+  </ItemGroup>
+
 </Project>
