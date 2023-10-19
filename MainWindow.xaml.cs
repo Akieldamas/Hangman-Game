@@ -78,7 +78,7 @@ namespace Hangman
             HiddenWord = new string('*', RandomWord.Length);
             LabelLives.Content = "Lives " + CurrentLives + "/" + MaxLives;
             WordTextbox.Text = HiddenWord;
-            Uri resourceUri = new Uri(@"images/character_" + CurrentLives, UriKind.Relative);
+            Uri resourceUri = new Uri(@"images/character_" + CurrentLives + ".png", UriKind.Relative);
             character.Source = new BitmapImage(resourceUri);
             
 
@@ -148,18 +148,6 @@ namespace Hangman
                 HiddenWord = newHiddenWord.ToString();
                 WordTextbox.Text = HiddenWord;
             }
-
-            if (timeleft > 0 && CurrentLives > 0 && HiddenWord.Contains("*") == false)
-            {
-
-                WordTextbox.Text = "YOU WIN (" + RandomWord + ")";
-                hangman.Visibility = Visibility.Hidden;
-            }
-            else if (CurrentLives == 0)
-            {
-                WordTextbox.Text = "YOU LOSE (" + RandomWord + ")";
-                hangman.Visibility = Visibility.Hidden;
-            }
         }
         private void LivesCounter()
         {
@@ -167,8 +155,8 @@ namespace Hangman
             {
                 CurrentLives -= 1;
                 LabelLives.Content = "Lives " + CurrentLives + "/" + MaxLives;
-                Uri resourceUri = new Uri(@"images/character_" + CurrentLives, UriKind.Relative);
-                character.Source = new BitmapImage(resourceUri);
+                character.Source = new BitmapImage(new Uri(@"images/character_" + CurrentLives + ".png", UriKind.Relative));
+                Debug.WriteLine(character.Source.ToString());
             }
         }
 
