@@ -46,8 +46,9 @@ namespace Hangman
 
         RandomizerClass Randomizer = new RandomizerClass(); // Class used to get a random word and a random letter for the sacrifice button
 
-        
-        
+     //   散る散るスイム written by かずち
+
+
 
 
         int CurrentLives = 6;
