@@ -126,7 +126,7 @@
                 <Button Click="Button_Click" Content="Z"  Grid.Row="2" Grid.Column="7"/>
                 <Button Content=""  Grid.Row="2" Grid.Column="8"/>
             </Grid>
-            
+
             <!-- Bottom Left Grid (where restart button is) -->
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
@@ -138,9 +138,10 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="1" Grid.Row="0" x:Name="ReplayButton" Content="RESTART"  Width="200" Height="80" Click="ReplayButton_Click" FontSize="36"/>
+                <Button Grid.Column="1" Grid.Row="1" x:Name="EndlessModeButton" Content="ENDLESS"  Width="200" Height="80" Click="EndlessButton_Click" FontSize="36" Margin="0,5,0,0" VerticalAlignment="Top"/>
             </Grid>
         </Grid>
-        
+
         <!--Images-->
         <Image x:Name="character" Margin="543,46,372,100" Source="images/character_0.png" Stretch="Fill" Grid.RowSpan="2"/>
         <Image x:Name="hangman" Margin="206,0,389,313" Grid.RowSpan="3" Source="images/hangman.png" Stretch="Fill"/>

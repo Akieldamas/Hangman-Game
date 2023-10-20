@@ -23,6 +23,9 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 using System.Diagnostics.Eventing.Reader;
 using System.ComponentModel;
+using Hangman.Classes;
+using System.Media;
+using Microsoft.Win32;
 
 namespace Hangman
 {
@@ -31,17 +34,21 @@ namespace Hangman
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         DispatcherTimer timer;
         // Initialize all values
-        string FileText;
-        string[] Mots;
-        string WordsFile = "words.txt";
-
         string RandomWord;
-
         string HiddenWord;
         char[] RandomWordArray;
         int index;
+
+        bool SoundIsPlaying = false;
+
+        RandomizerClass Randomizer = new RandomizerClass(); // Class used to get a random word and a random letter for the sacrifice button
+
+        
+        
+
 
         int CurrentLives = 6;
         int MaxLives = 6;
@@ -53,18 +60,11 @@ namespace Hangman
         {
             foreach (var btn in LettersGrid.Children.OfType<Button>())
             {
-                  btn.IsEnabled = true;
+                btn.IsEnabled = true;
             }
-
             HelpSacrifice.IsEnabled = true;
 
-            FileText = File.ReadAllText(WordsFile);
-            Mots = FileText.Split(' ');
-
-            Random random = new Random();
-            int randomIndex = random.Next(0, Mots.Length);
-
-            RandomWord = Mots[randomIndex].ToUpper();
+            RandomWord =Randomizer.GetRandomWord();
 
             Debug.WriteLine(RandomWord);
             CurrentLives = MaxLives;
@@ -72,10 +72,10 @@ namespace Hangman
             LabelLives.Content = "Lives " + CurrentLives + "/" + MaxLives;
             WordTextbox.Text = HiddenWord;
 
-            Uri resourceUri = new Uri(@"images/character_" + CurrentLives + ".png", UriKind.Relative); // Uri = Adresse lien de l'image
+            Uri resourceUri = new Uri(@"Resource/images/character_" + CurrentLives + ".png", UriKind.Relative); // Uri = Adresse lien de l'image
             character.Source = new BitmapImage(resourceUri); // bitmap is a object tha we use here to change the image
-            timer = new DispatcherTimer();
 
+            timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Tick += new EventHandler(timer_tick);
             timer.Start();
@@ -155,7 +155,7 @@ namespace Hangman
             {
                 CurrentLives -= 1;
                 LabelLives.Content = "Lives " + CurrentLives + "/" + MaxLives;
-                character.Source = new BitmapImage(new Uri(@"images/character_" + CurrentLives + ".png", UriKind.Relative));
+                character.Source = new BitmapImage(new Uri(@"Resource/images/character_" + CurrentLives + ".png", UriKind.Relative));
                 Debug.WriteLine(character.Source.ToString());
                 VictoryLossChecker();
             }
@@ -189,12 +189,15 @@ namespace Hangman
             if (CurrentLives > 1 && HiddenWord.Contains("*") == true)
             {
                 LivesCounter();
-                int SacrificeIndex = HiddenWord.IndexOf("*");
-                char letter = RandomWord[SacrificeIndex];
-                Debug.WriteLine(letter);
+                char letter = Randomizer.GetRandomLetter(RandomWord, HiddenWord);
                 WordChecker(letter);
                 HelpSacrifice.IsEnabled = false;
             }
+        }
+
+        private void EndlessButton_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
