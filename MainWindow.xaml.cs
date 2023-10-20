@@ -48,22 +48,14 @@ namespace Hangman
 
         int timeleft;
 
-        public void NewGame() // Function to restart the game instead of closing and reopening each time
+        public void NewGame() // Function to restart the game instead of closing and reopening each time, initializes everything back to default
         {
-
-            timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 1);
-            timer.Tick += new EventHandler(timer_tick);
-            timer.Start();
-            timeleft = 151;
-
-             foreach (var btn in LettersGrid.Children.OfType<Button>())
+            foreach (var btn in LettersGrid.Children.OfType<Button>())
             {
                   btn.IsEnabled = true;
             }
 
             HelpSacrifice.IsEnabled = true;
-
 
             FileText = File.ReadAllText(WordsFile);
             Mots = FileText.Split(' ');
@@ -78,11 +70,17 @@ namespace Hangman
             HiddenWord = new string('*', RandomWord.Length);
             LabelLives.Content = "Lives " + CurrentLives + "/" + MaxLives;
             WordTextbox.Text = HiddenWord;
+
             Uri resourceUri = new Uri(@"images/character_" + CurrentLives + ".png", UriKind.Relative);
             character.Source = new BitmapImage(resourceUri);
-            
-
+            character.Visibility = Visibility.Visible;
             hangman.Visibility = Visibility.Visible;
+            timer = new DispatcherTimer();
+
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Tick += new EventHandler(timer_tick);
+            timer.Start();
+            timeleft = 151;
 
         }
         public MainWindow()
@@ -91,8 +89,9 @@ namespace Hangman
             NewGame();
         }
 
-        void timer_tick(object sender, EventArgs e) // Counter
+        void timer_tick(object sender, EventArgs e) // Countdown timer
         {
+            VictoryLossChecker();
             if (timeleft > 0 && CurrentLives > 0 && HiddenWord.Contains("*") == true)
             {
                 timeleft = timeleft - 1;
@@ -147,6 +146,7 @@ namespace Hangman
                 }
                 HiddenWord = newHiddenWord.ToString();
                 WordTextbox.Text = HiddenWord;
+                VictoryLossChecker();
             }
         }
         private void LivesCounter() // Counter for lives
@@ -157,11 +157,32 @@ namespace Hangman
                 LabelLives.Content = "Lives " + CurrentLives + "/" + MaxLives;
                 character.Source = new BitmapImage(new Uri(@"images/character_" + CurrentLives + ".png", UriKind.Relative));
                 Debug.WriteLine(character.Source.ToString());
+                VictoryLossChecker();
+            }
+        }
+
+        private void VictoryLossChecker() // Checks if the player wins or not depending on lives, time and if the hiddenword still has *
+        {   
+            if (CurrentLives > 0 && timeleft > 0 && HiddenWord.Contains("*") == false)
+            {
+                timer.Stop();
+                WordTextbox.Text = "YOU WIN (" + RandomWord + ")";
+                character.Visibility = Visibility.Hidden;
+                hangman.Visibility = Visibility.Hidden;
+
+
+            }
+            else if (CurrentLives == 0 && HiddenWord.Contains("*") == true || timeleft <= 0 && HiddenWord.Contains("*") == true)
+            {
+                timer.Stop();
+                WordTextbox.Text = "YOU LOST (" + RandomWord + ")";
+                character.Visibility = Visibility.Hidden;
+                hangman.Visibility = Visibility.Hidden;
             }
         }
 
        
-        private void ReplayButton_Click(object sender, RoutedEventArgs e)
+        private void ReplayButton_Click(object sender, RoutedEventArgs e) // Stops time to prevent bugs and restarts the game
         {
             timer.Stop();
             NewGame();
@@ -169,21 +190,16 @@ namespace Hangman
 
         private void HelpSacrifice_Click(object sender, RoutedEventArgs e) // Sacrifice 1 life for a random letter (risky move)
         {
-            if (CurrentLives > 1)
+            if (CurrentLives > 1 && HiddenWord.Contains("*") == true)
             {
                 LivesCounter();
-                
-                if (HiddenWord.Contains("*") == true)
-                {
-                    LabelLives.Content = "Lives " + CurrentLives + "/" + MaxLives;
-                    Random randomLetter = new Random();
-                    int Index = randomLetter.Next(RandomWord.Length);
+                Random randomLetter = new Random();
+                int Index = randomLetter.Next(RandomWord.Length);
 
-                    char letter = RandomWord[Index];
-                    Debug.WriteLine(letter);
-                    WordChecker(letter);
-                    HelpSacrifice.IsEnabled = false;
-                }
+                char letter = RandomWord[Index];
+                Debug.WriteLine(letter);
+                WordChecker(letter);
+                HelpSacrifice.IsEnabled = false;
 
             }
         }
