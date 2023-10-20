@@ -34,7 +34,7 @@
             <ColumnDefinition Width="161*"/>
         </Grid.ColumnDefinitions>
         <!--  -->
-        <TextBlock x:Name="WordTextbox" Text="" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" TextAlignment="Center" Width="659" Height="62" Foreground="White" FontSize="40" Margin="206,0,0,0"/>
+        <TextBlock x:Name="WordTextbox" Text="" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" TextAlignment="Center" Width="659" Height="62" Foreground="White" FontSize="35" Margin="206,0,0,0"/>
         <Grid Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1037*"/>
@@ -65,10 +65,6 @@
                 <Label x:Name="TimerLabel"  Content="00:00" FontSize="60" Foreground="White" HorizontalContentAlignment="Right" Margin="423,-8,13,24" Grid.Column="1" Grid.RowSpan="2"/>
                 <Button x:Name="HelpSacrifice" Visibility="Visible" BorderBrush="White" BorderThickness="2, 2, 2, 2" HorizontalAlignment="Left" Content="Sacrifice Life" Background="Transparent" Width="196" Click="HelpSacrifice_Click" Margin="985,74,0,0" VerticalAlignment="Top"/>
             </Grid>
-
-
-
-
 
             <Label x:Name="LabelLives" Content="Lives: 6/6" BorderBrush="White" VerticalContentAlignment="Center" BorderThickness="2, 2, 2, 2" Foreground="White" FontSize="29" Margin="12,16,877,99"/>
 
@@ -130,6 +126,8 @@
                 <Button Click="Button_Click" Content="Z"  Grid.Row="2" Grid.Column="7"/>
                 <Button Content=""  Grid.Row="2" Grid.Column="8"/>
             </Grid>
+            
+            <!-- Bottom Left Grid (where restart button is) -->
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.45*"/>
@@ -143,7 +141,7 @@
             </Grid>
         </Grid>
         <!---->
-        <Image x:Name="character" Margin="661,46,254,100" Source="images/character_0.png" Stretch="Fill" Grid.RowSpan="2"/>
-        <Image x:Name="hangman" Margin="322,0,273,313" Grid.RowSpan="3" Source="images/hangman.png" Stretch="Fill"/>
+        <Image x:Name="character" Margin="543,46,372,100" Source="images/character_0.png" Stretch="Fill" Grid.RowSpan="2"/>
+        <Image x:Name="hangman" Margin="206,0,389,313" Grid.RowSpan="3" Source="images/hangman.png" Stretch="Fill"/>
     </Grid>
 </Window>

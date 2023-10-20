@@ -47,6 +47,7 @@ namespace Hangman
         int MaxLives = 6;
 
         int timeleft;
+        int SacrificeIndex;
 
         public void NewGame() // Function to restart the game instead of closing and reopening each time, initializes everything back to default
         {
@@ -71,16 +72,14 @@ namespace Hangman
             LabelLives.Content = "Lives " + CurrentLives + "/" + MaxLives;
             WordTextbox.Text = HiddenWord;
 
-            Uri resourceUri = new Uri(@"images/character_" + CurrentLives + ".png", UriKind.Relative);
-            character.Source = new BitmapImage(resourceUri);
-            character.Visibility = Visibility.Visible;
-            hangman.Visibility = Visibility.Visible;
+            Uri resourceUri = new Uri(@"images/character_" + CurrentLives + ".png", UriKind.Relative); // Uri = Adresse lien de l'image
+            character.Source = new BitmapImage(resourceUri); // bitmap is a object tha we use here to change the image
             timer = new DispatcherTimer();
 
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Tick += new EventHandler(timer_tick);
             timer.Start();
-            timeleft = 151;
+            timeleft = 50;
 
         }
         public MainWindow()
@@ -97,17 +96,17 @@ namespace Hangman
                 timeleft = timeleft - 1;
                 TimerLabel.Content = string.Format("0{0}:{1:00}", timeleft / 60, timeleft % 60);
             }
+            else if (timeleft == 0)
+            {
+                timer.Stop();
+            }
             else if (timeleft <= 10 && CurrentLives > 0)
             {
                 timeleft = timeleft - 1;
                 TimerLabel.Content = string.Format("0{0}:{1:00}", timeleft / 60, timeleft % 60);
             }
-            else
-            {
-                timer.Stop();
-            }
 
-            CommandManager.InvalidateRequerySuggested();
+            //CommandManager.InvalidateRequerySuggested();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) // All button letters
@@ -136,7 +135,8 @@ namespace Hangman
         }
         private void WordChecker(char letter) // Checks if the letter is in the word and multiple times and changes
         {
-            StringBuilder newHiddenWord = new StringBuilder(HiddenWord);
+            StringBuilder newHiddenWord = new StringBuilder(HiddenWord); // We have to use object: stringbuilder (other things are possible) so we
+                                                                         // can replace the letter found to the other because strings are immutable
 
             for (int i = 0; i < RandomWord.Length; i++)
             {
@@ -167,8 +167,6 @@ namespace Hangman
             {
                 timer.Stop();
                 WordTextbox.Text = "YOU WIN (" + RandomWord + ")";
-                character.Visibility = Visibility.Hidden;
-                hangman.Visibility = Visibility.Hidden;
 
 
             }
@@ -176,8 +174,6 @@ namespace Hangman
             {
                 timer.Stop();
                 WordTextbox.Text = "YOU LOST (" + RandomWord + ")";
-                character.Visibility = Visibility.Hidden;
-                hangman.Visibility = Visibility.Hidden;
             }
         }
 
@@ -193,14 +189,11 @@ namespace Hangman
             if (CurrentLives > 1 && HiddenWord.Contains("*") == true)
             {
                 LivesCounter();
-                Random randomLetter = new Random();
-                int Index = randomLetter.Next(RandomWord.Length);
-
-                char letter = RandomWord[Index];
+                int SacrificeIndex = HiddenWord.IndexOf("*");
+                char letter = RandomWord[SacrificeIndex];
                 Debug.WriteLine(letter);
                 WordChecker(letter);
                 HelpSacrifice.IsEnabled = false;
-
             }
         }
     }
