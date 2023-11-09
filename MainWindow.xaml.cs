@@ -46,11 +46,8 @@ namespace Hangman
 
         RandomizerClass Randomizer = new RandomizerClass(); // Class used to get a random word and a random letter for the sacrifice button
 
-     //   散る散るスイム written by かずち
-
-
-
-
+        //   散る散るスイム written by かずち
+        SoundPlayer player = new SoundPlayer();
         int CurrentLives = 6;
         int MaxLives = 6;
 
@@ -81,6 +78,7 @@ namespace Hangman
             timer.Tick += new EventHandler(timer_tick);
             timer.Start();
             timeleft = 50;
+            PlayMusic();
 
         }
         public MainWindow()
@@ -109,6 +107,32 @@ namespace Hangman
 
             //CommandManager.InvalidateRequerySuggested();
         }
+
+        private void PlayMusic()
+        {
+            player.SoundLocation = @"C:\Users\SLAB78\Source\Repos\Hangman-Game\Resource\Sounds\test.wav";
+
+            player.PlayLooping();
+
+        }
+        private void StopMusic()
+        {
+            player.Stop();
+
+        }
+        /*       private void MusicButton_Click(object sender, RoutedEventArgs e)
+               {
+                   if (SoundIsPlaying == false)
+                   {
+                       PlayMusic();
+                       SoundIsPlaying = true;
+                   }
+                   else
+                   {
+                       StopMusic();
+                       SoundIsPlaying = false;
+                   }
+               } */
 
         private void Button_Click(object sender, RoutedEventArgs e) // All button letters
         {

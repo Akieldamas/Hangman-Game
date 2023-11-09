@@ -29,6 +29,7 @@
     <None Remove="Resource\images\head.png" />
     <None Remove="Resource\images\leg.png" />
     <None Remove="Resource\Sounds\test.mp3" />
+    <None Remove="Resource\Sounds\test.wav" />
     <None Remove="words.txt" />
   </ItemGroup>
 
@@ -47,7 +48,7 @@
     <Resource Include="Resource\images\character_5.png" />
     <Resource Include="Resource\images\character_6.png" />
     <Resource Include="Resource\images\hangman.png" />
-    <Resource Include="Resource\Sounds\test.mp3" />
+    <Resource Include="Resource\Sounds\test.wav" />
   </ItemGroup>
 
 </Project>
