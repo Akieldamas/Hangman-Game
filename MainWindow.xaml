@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hangman"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1200" Background="#1A1E21">
-
+        Title="MainWindow" Height="700" Width="1200" Background="#1A1E21" ResizeMode="NoResize">
+           
+    
     <Grid Background="#1A1E21">
 
         <Grid.RowDefinitions>
@@ -138,12 +139,12 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="1" Grid.Row="0" x:Name="ReplayButton" Content="RESTART"  Width="200" Height="80" Click="ReplayButton_Click" FontSize="36"/>
-                <Button Grid.Column="1" Grid.Row="1" x:Name="EndlessModeButton" Content="ENDLESS"  Width="200" Height="80" Click="EndlessButton_Click" FontSize="36" Margin="0,5,0,0" VerticalAlignment="Top"/>
+                <Button Grid.Column="1" Grid.Row="1" x:Name="MusicButton" Content="MUSIC"  Width="100" Height="60" Click="MusicButton_Click" FontSize="26" Margin="0,5,2,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
             </Grid>
         </Grid>
 
         <!--Images-->
-        <Image x:Name="character" Margin="543,46,372,100" Source="images/character_0.png" Stretch="Fill" Grid.RowSpan="2"/>
-        <Image x:Name="hangman" Margin="206,0,389,313" Grid.RowSpan="3" Source="images/hangman.png" Stretch="Fill"/>
+        <Image x:Name="character" Margin="543,46,372,100" Source="Resource/images/character_0.png" Stretch="Fill" Grid.RowSpan="2"/>
+        <Image x:Name="hangman" Margin="218,0,377,313" Grid.RowSpan="3" Source="Resource/images/hangman.png"/>
     </Grid>
 </Window>
