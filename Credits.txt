@@ -10,3 +10,5 @@ Source: https://dova-s.jp/se/play1463.html
 Source: https://dova-s.jp/bgm/play19685.html
 
 Sprites of the hangman & character: Made by Akiel / Akieldamas
+
+Design: Made by Akiel / Akieldamas
