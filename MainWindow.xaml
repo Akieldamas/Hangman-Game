@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hangman"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1200" Background="#1A1E21" ResizeMode="NoResize">
+        Title="Hangman" Height="700" Width="1200" Background="#1A1E21" ResizeMode="NoResize">
            
     
     <Grid Background="#1A1E21">

@@ -43,15 +43,19 @@ namespace Hangman
         int index;
 
         bool SoundIsPlaying = false;
+        String AudioPath = @"Resource\Sounds\BGM_Music.mp3";
+        MediaPlayer BGMPlayer = new MediaPlayer();
+        MediaPlayer SoundEffect = new MediaPlayer();
 
         RandomizerClass Randomizer = new RandomizerClass(); // Class used to get a random word and a random letter for the sacrifice button
 
-        SoundPlayer player = new SoundPlayer();
         int CurrentLives = 6;
         int MaxLives = 6;
 
         int timeleft;
         int SacrificeIndex;
+
+
 
         public void NewGame() // Function to restart the game instead of closing and reopening each time, initializes everything back to default
         {
@@ -87,6 +91,8 @@ namespace Hangman
         {
             InitializeComponent();
             NewGame();
+
+            BGMPlayer.MediaEnded += new EventHandler(Media_Ended); // Creer evenement pour relancer la musique quand elle est finie
         }
 
         void timer_tick(object sender, EventArgs e) // Countdown timer
@@ -110,16 +116,23 @@ namespace Hangman
             //CommandManager.InvalidateRequerySuggested();
         }
 
-        private void PlayMusic()
+        void Media_Ended(object sender, EventArgs e) // Function to restart the music when it ends
         {
-            player.SoundLocation = @"C:\Users\SLAB78\Source\Repos\Hangman-Game\Resource\Sounds\Blue_Light_Techno.wav";
+            BGMPlayer.Position = TimeSpan.Zero;
+            BGMPlayer.Play();
+        }
+
+        private void PlayMusic() // Function to play the music
+        {
+            BGMPlayer.Volume = 0.1;
+            BGMPlayer.Open(new Uri(AudioPath, UriKind.Relative));
             SoundIsPlaying = true;
-            player.PlayLooping();
+            BGMPlayer.Play();
 
         }
-        private void StopMusic()
+        private void StopMusic() // Function to stop the music
         {
-            player.Stop();
+            BGMPlayer.Stop();
             SoundIsPlaying = false;
 
         }
@@ -182,8 +195,9 @@ namespace Hangman
             {
                 timer.Stop();
                 WordTextbox.Text = "YOU WIN (" + RandomWord + ")";
-
-
+                SoundEffect.Volume = 0.1;
+                SoundEffect.Open(new Uri(@"Resource\Sounds\WinSFX.mp3", UriKind.Relative));
+                SoundEffect.Play();
             }
             else if (CurrentLives == 0 && HiddenWord.Contains("*") == true || timeleft <= 0 && HiddenWord.Contains("*") == true)
             {
@@ -210,7 +224,7 @@ namespace Hangman
             }
         }
 
-        private void MusicButton_Click(object sender, RoutedEventArgs e)
+        private void MusicButton_Click(object sender, RoutedEventArgs e) // Button to play or stop the music
         {
             if (SoundIsPlaying == false)
             {

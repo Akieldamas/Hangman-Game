@@ -5,6 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resource\images\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resource\images\logo.ico" />
     <Content Include="words.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -47,6 +49,15 @@
     <Resource Include="Resource\images\character_5.png" />
     <Resource Include="Resource\images\character_6.png" />
     <Resource Include="Resource\images\hangman.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resource\Sounds\BGM_Music.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resource\Sounds\WinSFX.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
