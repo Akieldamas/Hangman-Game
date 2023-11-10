@@ -1,0 +1,12 @@
+﻿Here is the credits for things I've used such as :
+Music, Sound Effects, Sprites, etc.
+
+Music: 
+Sound: ("Name in files":, Original Name, by Author, and Source link)
+"WinSFX": 発見！成功！な嬉しい音 (by NaruIDEA)
+Source: https://dova-s.jp/se/play1463.html
+
+"BGM_Music": 散る散るスイム (by かずち)
+Source: https://dova-s.jp/bgm/play19685.html
+
+Sprites of the hangman & character: Made by Akiel / Akieldamas

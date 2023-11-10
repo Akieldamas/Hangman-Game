@@ -23,6 +23,9 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 using System.Diagnostics.Eventing.Reader;
 using System.ComponentModel;
+using Hangman.Classes;
+using System.Media;
+using Microsoft.Win32;
 
 namespace Hangman
 {
@@ -31,17 +34,20 @@ namespace Hangman
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         DispatcherTimer timer;
         // Initialize all values
-        string FileText;
-        string[] Mots;
-        string WordsFile = "words.txt";
-
         string RandomWord;
-
         string HiddenWord;
         char[] RandomWordArray;
         int index;
+
+        bool SoundIsPlaying = false;
+        String AudioPath = @"Resource\Sounds\BGM_Music.mp3";
+        MediaPlayer BGMPlayer = new MediaPlayer();
+        MediaPlayer SoundEffect = new MediaPlayer();
+
+        RandomizerClass Randomizer = new RandomizerClass(); // Class used to get a random word and a random letter for the sacrifice button
 
         int CurrentLives = 6;
         int MaxLives = 6;
@@ -49,22 +55,17 @@ namespace Hangman
         int timeleft;
         int SacrificeIndex;
 
+
+
         public void NewGame() // Function to restart the game instead of closing and reopening each time, initializes everything back to default
         {
             foreach (var btn in LettersGrid.Children.OfType<Button>())
             {
-                  btn.IsEnabled = true;
+                btn.IsEnabled = true;
             }
-
             HelpSacrifice.IsEnabled = true;
 
-            FileText = File.ReadAllText(WordsFile);
-            Mots = FileText.Split(' ');
-
-            Random random = new Random();
-            int randomIndex = random.Next(0, Mots.Length);
-
-            RandomWord = Mots[randomIndex].ToUpper();
+            RandomWord =Randomizer.GetRandomWord();
 
             Debug.WriteLine(RandomWord);
             CurrentLives = MaxLives;
@@ -72,20 +73,26 @@ namespace Hangman
             LabelLives.Content = "Lives " + CurrentLives + "/" + MaxLives;
             WordTextbox.Text = HiddenWord;
 
-            Uri resourceUri = new Uri(@"images/character_" + CurrentLives + ".png", UriKind.Relative); // Uri = Adresse lien de l'image
+            Uri resourceUri = new Uri(@"Resource/images/character_" + CurrentLives + ".png", UriKind.Relative); // Uri = Adresse lien de l'image
             character.Source = new BitmapImage(resourceUri); // bitmap is a object tha we use here to change the image
-            timer = new DispatcherTimer();
 
+            timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Tick += new EventHandler(timer_tick);
+            timeleft = 90;
             timer.Start();
-            timeleft = 50;
+            if (SoundIsPlaying == false)
+            {
+                PlayMusic();
+            }
 
         }
         public MainWindow()
         {
             InitializeComponent();
             NewGame();
+
+            BGMPlayer.MediaEnded += new EventHandler(Media_Ended); // Creer evenement pour relancer la musique quand elle est finie
         }
 
         void timer_tick(object sender, EventArgs e) // Countdown timer
@@ -107,6 +114,27 @@ namespace Hangman
             }
 
             //CommandManager.InvalidateRequerySuggested();
+        }
+
+        void Media_Ended(object sender, EventArgs e) // Function to restart the music when it ends
+        {
+            BGMPlayer.Position = TimeSpan.Zero;
+            BGMPlayer.Play();
+        }
+
+        private void PlayMusic() // Function to play the music
+        {
+            BGMPlayer.Volume = 0.1;
+            BGMPlayer.Open(new Uri(AudioPath, UriKind.Relative));
+            SoundIsPlaying = true;
+            BGMPlayer.Play();
+
+        }
+        private void StopMusic() // Function to stop the music
+        {
+            BGMPlayer.Stop();
+            SoundIsPlaying = false;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) // All button letters
@@ -155,7 +183,7 @@ namespace Hangman
             {
                 CurrentLives -= 1;
                 LabelLives.Content = "Lives " + CurrentLives + "/" + MaxLives;
-                character.Source = new BitmapImage(new Uri(@"images/character_" + CurrentLives + ".png", UriKind.Relative));
+                character.Source = new BitmapImage(new Uri(@"Resource/images/character_" + CurrentLives + ".png", UriKind.Relative));
                 Debug.WriteLine(character.Source.ToString());
                 VictoryLossChecker();
             }
@@ -167,8 +195,9 @@ namespace Hangman
             {
                 timer.Stop();
                 WordTextbox.Text = "YOU WIN (" + RandomWord + ")";
-
-
+                SoundEffect.Volume = 0.1;
+                SoundEffect.Open(new Uri(@"Resource\Sounds\WinSFX.mp3", UriKind.Relative));
+                SoundEffect.Play();
             }
             else if (CurrentLives == 0 && HiddenWord.Contains("*") == true || timeleft <= 0 && HiddenWord.Contains("*") == true)
             {
@@ -189,12 +218,22 @@ namespace Hangman
             if (CurrentLives > 1 && HiddenWord.Contains("*") == true)
             {
                 LivesCounter();
-                int SacrificeIndex = HiddenWord.IndexOf("*");
-                char letter = RandomWord[SacrificeIndex];
-                Debug.WriteLine(letter);
+                char letter = Randomizer.GetRandomLetter(RandomWord, HiddenWord);
                 WordChecker(letter);
                 HelpSacrifice.IsEnabled = false;
             }
+        }
+
+        private void MusicButton_Click(object sender, RoutedEventArgs e) // Button to play or stop the music
+        {
+            if (SoundIsPlaying == false)
+            {
+                PlayMusic();
+            }
+            else
+            {
+                StopMusic();
+            }    
         }
     }
 }
