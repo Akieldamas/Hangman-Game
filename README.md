@@ -24,7 +24,7 @@ git clone https://github.com/Akieldamas/Hangman-Game.git
 ![image](https://github.com/user-attachments/assets/b15cf24b-12e1-4cd0-b534-8dc753caab88)
 
 🎶 Credits
-Credits are also available in Credits.txt.
+Credits are also available in Credits.txt.\n
 Format: ("Name in files":, Original Name, by Author, and Source link)
 * "WinSFX": 「発見！成功！な嬉しい音」 by NaruIDEA
    * 🔗 [Source](https://dova-s.jp/se/play1463.html)
