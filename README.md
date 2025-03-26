@@ -19,8 +19,8 @@ git clone https://github.com/Akieldamas/Hangman-Game.git
 ```
 *Not familiar with Git? You can download it [here]((https://git-scm.com/)) and use the command above.*
 2. OR Download it manually:
-*Click the Code button on GitHub.
-*Choose Download ZIP or Open in Visual Studio.
+* Click the Code button on GitHub.
+ *Choose Download ZIP or Open in Visual Studio.
 ![image](https://github.com/user-attachments/assets/b15cf24b-12e1-4cd0-b534-8dc753caab88)
 
 🎶 Credits
