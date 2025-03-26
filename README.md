@@ -23,7 +23,7 @@ git clone https://github.com/Akieldamas/Hangman-Game.git
  *Choose Download ZIP or Open in Visual Studio.
 ![image](https://github.com/user-attachments/assets/b15cf24b-12e1-4cd0-b534-8dc753caab88)
 
-🎶 Credits
+## 🎶 Credits
 Credits are also available in Credits.txt.
 
 Format: ("Name in files":, Original Name, by Author, and Source link)
