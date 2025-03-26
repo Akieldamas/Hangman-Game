@@ -1,5 +1,10 @@
 # Hangman Game  
 
+## 🎯 Objective  
+The main objective of this project was to:
+- **Read data from a `.txt` file** (for custom word lists).  
+- Implement a **simple game logic** for a **Hangman** game, including a lives system.  
+
 ## 📝 Description  
 **NOTE:** I do not plan to modify this app any further.  
 
