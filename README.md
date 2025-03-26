@@ -14,9 +14,9 @@ Since I never built the app into an `.exe` (and do not plan to), you will need *
 
 ### Steps to Open the Project:  
 1. Clone the repository:  
-```sh
-git clone https://github.com/Akieldamas/Hangman-Game.git
-```
+	```sh
+	git clone https://github.com/Akieldamas/Hangman-Game.git
+	```
 	* Not familiar with Git? You can download it [here]((https://git-scm.com/)) and use the command above.
 2. OR Download it manually:
 	* Click the Code button on GitHub.
